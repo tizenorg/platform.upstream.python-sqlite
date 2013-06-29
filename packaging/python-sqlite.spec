@@ -20,6 +20,7 @@ Summary:        DB-API 2.0 interface for SQLite 3.x
 License:        Zlib
 Group:          Platform Development/Python
 Source:         http://pysqlite.googlecode.com/files/pysqlite-%{version}.tar.gz
+Source1001: 	python-sqlite.manifest
 BuildRequires:  python-devel
 BuildRequires:  sqlite3-devel
 Requires:       sqlite3
@@ -33,6 +34,7 @@ exposes the unique features of SQLite.
 
 %prep
 %setup -q -n pysqlite-%{version}
+cp %{SOURCE1001} .
 
 %build
 CFLAGS="%{optflags}" python setup.py build
@@ -42,6 +44,7 @@ python setup.py install --prefix=%{_prefix} --root=%{buildroot}
 rm -rf %{buildroot}%{_prefix}/pysqlite2-doc # Remove wrongly installed junk
 
 %files
+%manifest %{name}.manifest
 %defattr(-,root,root,-)
 %license LICENSE
 %{python_sitearch}/*
